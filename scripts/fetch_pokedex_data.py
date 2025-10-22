@@ -38,7 +38,7 @@ for entry in data["pokemon_entries"]:
         })
 
 # Save all Pokémon details in one JSON file
-pokedex_file = "../data/original_sinnoh_pokedex.json"
+pokedex_file = "data/original_sinnoh_pokedex.json"
 with open(pokedex_file, "w", encoding="utf-8") as f:
     json.dump(pokedex, f, indent=2)
 
