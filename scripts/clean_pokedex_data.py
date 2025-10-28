@@ -1,0 +1,15 @@
+import json
+import pandas as pd
+
+# Load raw json 
+with open("data/sinnoh_pokedex_raw.json", "r") as f:
+    df = pd.read_json(f)
+
+# Capitalize Pokémon names and types
+df["Name"] = df["Name"].str.capitalize()
+df["Type 1"] = df["Type 1"].str.capitalize()
+df["Type 2"] = df["Type 2"].str.capitalize()
+
+df.to_json("data/sinnoh_pokedex_clean.json",orient="records",indent=2)
+
+
