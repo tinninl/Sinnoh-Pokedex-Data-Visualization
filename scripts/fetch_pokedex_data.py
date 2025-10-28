@@ -54,7 +54,7 @@ for entry in data["pokemon_entries"]:
     })
 
 # Save in JSON file
-pokedex_file = "data/sinnoh_pokedex_raw.json"
+pokedex_file = "data/json/sinnoh_pokedex_raw.json"
 
 with open(pokedex_file, "w", encoding="utf-8") as f:
     json.dump(pokedex_list, f, indent=2)
