@@ -1,11 +1,10 @@
 # Get pokedex data from pokeapi, put it into a json file
-import os, json
-from config import BASE_URL, POKEDEX_URL
+import json
 import requests
 import pandas as pd
 
 # Request data from pokeapi
-response = requests.get(BASE_URL + POKEDEX_URL) 
+response = requests.get("https://pokeapi.co/api/v2/pokedex/original-sinnoh/") 
 data = response.json()
 
 # Build a list to save to a json file
