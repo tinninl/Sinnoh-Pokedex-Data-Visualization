@@ -1,24 +1,30 @@
-# Get pokedex data from pokeapi, put it into a json file
+# This script utilizes the PokeAPI, a free open-source API, 
+# to fetch the necessary pokemon data and cache it into a JSON file
+
 import json
 import requests
-import pandas as pd
+from config import BASE_URL, POKEDEX_URL, JSON_RAW_FILENAME
 
-# Request data from pokeapi
-response = requests.get("https://pokeapi.co/api/v2/pokedex/original-sinnoh/") 
+# Step 1: Fetch the pokedex data
+# This will give us the list of all the pokemon we want
+response = requests.get(BASE_URL + POKEDEX_URL) 
 data = response.json()
 
-# Build a list to save to a json file
+# Step 2: Build a list of pokemon information to be later saved to a JSON file
+# We will gather the pokemon's number, name, type(s), and base stats (hp, atk, def, etc)
+
 pokedex_list = []
 
 for entry in data["pokemon_entries"]:
     
     # Extract name and number
-    name = entry["pokemon_species"]["name"] 
     no = entry["entry_number"]
+    name = entry["pokemon_species"]["name"] 
     
-    # To get the pokemon type(s) and stats, we need another api call
-    # Do NOT use pokemon name, use id, as pokemon like wormadam cause issues
-    # since their names are 'wormadam-plant' and such
+    # In order to gather types and base stats, we need to make an individual call 
+    # for each and every pokemon.
+    
+    # We can extract the id number from the url to make our API calls
     species_url = entry["pokemon_species"]["url"]
     species_id = species_url.rstrip("/").split("/")[-1]   
     
@@ -53,8 +59,9 @@ for entry in data["pokemon_entries"]:
         "Spd": spd
     })
 
-# Save in JSON file
-pokedex_file = "data/json/sinnoh_pokedex_raw.json"
+# Save the list in a JSON file
+# We will title it "raw" for now and later we will create a "clean" JSON file
+pokedex_file = JSON_RAW_FILENAME
 
 with open(pokedex_file, "w", encoding="utf-8") as f:
     json.dump(pokedex_list, f, indent=2)

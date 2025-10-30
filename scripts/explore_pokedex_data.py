@@ -1,9 +1,10 @@
 import pandas as pd
+from config import JSON_CLEAN_FILENAME, CSV_SINNOH_POKEDEX_FILENAME, CSV_SINNOH_POKEDEX_TOP_TENS_FILENAME
 
-df = pd.read_json("data/json/sinnoh_pokedex_clean.json")
+df = pd.read_json(JSON_CLEAN_FILENAME)
 
 # export csv
-df.to_csv("data/csv/sinnoh_pokedex.csv", index=False)
+df.to_csv(CSV_SINNOH_POKEDEX_FILENAME, index=False)
 
 # Create a csv with the top ten pokemon in each stat, including total stats
 df['Total'] = df.iloc[:, 4:10].sum(axis=1)
@@ -26,7 +27,7 @@ for col in stats:
     top_tens = pd.concat([top_tens, temp], ignore_index=True)
 
 # Export to CSV
-top_tens.to_csv('data/csv/sinnoh_pokedex_top_tens.csv', index=False)
+top_tens.to_csv(CSV_SINNOH_POKEDEX_TOP_TENS_FILENAME,index=False)
 
 
 
