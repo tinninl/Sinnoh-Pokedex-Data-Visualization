@@ -3,7 +3,7 @@ import pandas as pd
 df = pd.read_json("data/json/sinnoh_pokedex_clean.json")
 
 # export csv
-df.to_csv("data/csv/sinnoh_pokedex.csv")
+df.to_csv("data/csv/sinnoh_pokedex.csv", index=False)
 
 # Create a csv with the top ten pokemon in each stat, including total stats
 df['Total'] = df.iloc[:, 4:10].sum(axis=1)
